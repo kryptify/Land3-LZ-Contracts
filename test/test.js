@@ -8,8 +8,9 @@ describe("Test: ", function () {
     let owner, account1, lzEndpointEthMock, lzEndpointAvxMock, NFT, RemoteUpdater, LZEndpointMock, NFTContract
 
     before(async function () {
-        owner = (await ethers.getSigners())[0]
-        account1 = (await ethers.getSigners())[1]
+        const signers = await ethers.getSigners()
+        owner = signers[0]
+        account1 = signers[1]
 
         LZEndpointMock = await ethers.getContractFactory("LZEndpointMock")
         NFTContract = await ethers.getContractFactory("ExampleNFT")
