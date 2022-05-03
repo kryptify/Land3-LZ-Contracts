@@ -3,13 +3,13 @@ const { getDeploymentAddresses } = require("../utils/readStatic")
 
 module.exports = async function (taskArgs, hre) {
     const dstChainId = CHAIN_ID[taskArgs.targetNetwork]
-    const dstAddr = getDeploymentAddresses(taskArgs.targetNetwork)["ExampleNFT"]
-    const exampleNFT = await ethers.getContract("ExampleNFT")
-    console.log(`[source] ExampleNFT.address: ${exampleNFT.address}`)
+    const dstAddr = getDeploymentAddresses(taskArgs.targetNetwork)["RemoteUpdater"]
+    const remoteUpdater = await ethers.getContract("RemoteUpdater")
+    console.log(`[source] remoteUpdater.address: ${remoteUpdater.address}`)
 
     // setTrustedRemote() on the local contract, so it can receive message from the source contract
     try {
-        let tx = await (await exampleNFT.setTrustedRemote(dstChainId, dstAddr)).wait()
+        let tx = await (await remoteUpdater.setTrustedRemote(dstChainId, dstAddr)).wait()
         console.log(`✅ [${hre.network.name}] setTrustedRemote(${dstChainId}, ${dstAddr})`)
         console.log(` tx: ${tx.transactionHash}`)
     } catch (e) {
