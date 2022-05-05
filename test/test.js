@@ -41,9 +41,9 @@ describe("Test: ", function () {
         // verify the current owner of the token
         expect(await NFT.ownerOf(tokenId)).to.be.equal(owner.address)
 
-        // approve and update owner of NFT
-        await NFT.approve(NFT.address, tokenId)
- 
+        // // approve and update owner of NFT
+        // await NFT.approve(NFT.address, tokenId)
+
         await RemoteUpdater.updateOwnerOfNFT(chainIdEth, tokenId, account1.address)
 
         // verify the new owner of the token
