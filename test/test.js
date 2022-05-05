@@ -41,12 +41,21 @@ describe("Test: ", function () {
         // verify the current owner of the token
         expect(await NFT.ownerOf(tokenId)).to.be.equal(owner.address)
 
-        // // approve and update owner of NFT
+        // update owner of NFT
         // await NFT.approve(NFT.address, tokenId)
-
         await RemoteUpdater.updateOwnerOfNFT(chainIdEth, tokenId, account1.address)
 
         // verify the new owner of the token
         expect(await NFT.ownerOf(tokenId)).to.be.equal(account1.address)
+    })
+
+    it("update the owner of NFT from Avax chain when paused should revert", async function () {
+
+        // disable remote update
+        await RemoteUpdater.enable(false)
+
+        // update owner of NFT
+        const tokenId = 1;
+        await expect(RemoteUpdater.updateOwnerOfNFT(chainIdEth, tokenId, account1.address)).to.revertedWith("Pausable: paused")
     })
 })
